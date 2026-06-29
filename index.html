@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARK2 MINISTRY | Música que Inspira</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- ESTILOS PERSONALIZADOS (CSS) --- */
+        :root {
+            --color-primario: #f3a636; 
+            --color-secundario: #b47a22; 
+            --color-oscuro: #121212;
+            --color-texto: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--color-oscuro);
+            color: var(--color-texto);
+        }
+
+        h1, h2, h3, h4, .navbar-brand {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #333;
+        }
+        .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff !important;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .navbar-brand .subbrand {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: #aaa;
+            font-weight: 400;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-left: 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--color-primario) !important;
+        }
+
+        /* --- POPUP (MODAL) ESTILOS SOBRIOS --- */
+        .custom-modal {
+            background-color: rgba(22, 22, 22, 0.98);
+            border: 2px solid var(--color-primario);
+            border-radius: 15px;
+            color: #fff;
+            box-shadow: 0 0 35px rgba(243, 166, 54, 0.25);
+        }
+        
+        .btn-social-popup {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-primario) !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 14px;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+            font-size: 0.95rem;
+        }
+        
+        .btn-social-popup:hover {
+            background-color: var(--color-primario);
+            color: #121212 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(243, 166, 54, 0.3);
+            border-color: var(--color-primario);
+        }
+
+        /* --- ANIMACIONES KEYFRAMES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes subtleZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        /* Sección Hero */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('img/1001285455.jpg') center/cover no-repeat;
+            z-index: -1;
+            animation: subtleZoom 20s infinite alternate ease-in-out;
+        }
+        .hero-content { z-index: 1; width: 100%; }
+        .hero-title, .hero-callout, .hero-subtitle, .hero-buttons {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        .hero-title { animation-delay: 0.2s; font-size: 5rem; font-weight: 700; color: #fff; text-shadow: 2px 2px 15px rgba(243, 166, 54, 0.5); margin-bottom: 10px; }
+        .hero-callout { animation-delay: 0.6s; color: var(--color-primario); font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; text-transform: uppercase; }
+        .hero-subtitle { animation-delay: 1.0s; font-size: 1.5rem; font-weight: 300; margin-bottom: 30px; letter-spacing: 1px; }
+        .hero-buttons { animation-delay: 1.4s; }
+
+        .btn-custom {
+            background-color: var(--color-primario);
+            color: #121212;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-transform: uppercase;
+            border: 2px solid var(--color-primario);
+            transition: all 0.4s ease; 
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .btn-custom:hover {
+            background-color: transparent;
+            color: var(--color-primario);
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Secciones Generales */
+        .section-padding { padding: 80px 0; }
+        .section-title { font-size: 3rem; color: #fff; margin-bottom: 50px; text-align: center; letter-spacing: 2px; }
+
+        /* Nosotros */
+        .about-image { border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 2px solid #333; }
+        .about-block { background-color: #1a1a1a; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--color-primario); }
+        .about-block p { color: #ffffff !important; font-size: 1.05rem; line-height: 1.6; }
+
+        /* Música */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); margin-bottom: 20px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .song-title { font-size: 1.5rem; color: #fff; margin-bottom: 5px; text-transform: none; }
+        .song-type { font-size: 0.9rem; color: #aaa; margin-bottom: 15px; }
+        .music-item-card { border: none; background-color: #1e1e1e; border-radius: 10px; padding: 15px; height: 100%; transition: transform 0.3s ease; }
+        .music-item-card:hover { transform: translateY(-5px); }
+
+        /* --- CORRECCIÓN NUEVA: GALERÍA MASONRY SIN CORTES --- */
+        .gallery-columns {
+            column-count: 3;
+            column-gap: 20px;
+        }
+        @media (max-width: 992px) {
+            .gallery-columns { column-count: 2; }
+        }
+        @media (max-width: 576px) {
+            .gallery-columns { column-count: 1; }
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: all 0.3s ease-in-out;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto; /* Mantiene la proporción original al 100% sin cortes */
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primario);
+            box-shadow: 0 12px 25px rgba(243, 166, 54, 0.2);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Agenda */
+        .agenda-item { border-bottom: 1px solid #333; padding: 25px 0; transition: background-color 0.3s ease; }
+        .agenda-item:hover { background-color: rgba(255, 255, 255, 0.02); }
+        .agenda-date { color: var(--color-primario); font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; }
+        .agenda-title { color: #fff; font-size: 1.8rem; margin-bottom: 5px; }
+        .btn-agenda { background-color: var(--color-secundario); color: #fff; font-weight: 600; border: none; padding: 10px 25px; border-radius: 0; text-transform: uppercase; }
+        .btn-solicitar { background-color: var(--color-secundario); color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 2px; border: none; border-radius: 0; transition: background-color 0.3s ease; }
+        .btn-solicitar:hover { background-color: var(--color-primario); color: #121212; }
+
+        /* Redes Sociales */
+        .social-icon { 
+            font-size: 2.5rem; 
+            color: #fff; 
+            margin: 0 15px; 
+            transition: all 0.3s ease; 
+            display: inline-block; 
+        }
+        .social-icon:hover { 
+            color: var(--color-primario); 
+            transform: translateY(-5px); 
+        }
+        .text-footer-handle {
+            color: #777 !important;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+        }
+
+        footer { background-color: #050505; padding: 30px 0; text-align: center; border-top: 1px solid #222; }
+    </style>
+</head>
+<body id="inicio">
+
+    <div class="modal fade" id="socialModal" tabindex="-1" aria-labelledby="socialModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal p-2">
+          <div class="modal-header border-0 pb-0">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center pb-4 px-4">
+            <h3 class="modal-title mb-2" id="socialModalLabel" style="color: var(--color-primario); font-family: 'Oswald', sans-serif; font-size: 2rem; letter-spacing: 1px;">¡CONÉCTATE CON NOSOTROS!</h3>
+            <p class="mb-4 text-secondary-emphasis" style="color: #bbb !important;">Visita nuestras redes y canales oficiales para escuchar nuestra música.</p>
+            
+            <div class="d-grid gap-3">
+              <a href="https://www.youtube.com/@MARK2Ministry" target="_blank" class="btn-social-popup">
+                  <i class="fab fa-youtube"></i> YouTube
+              </a>
+              <a href="https://open.spotify.com/intl-es/artist/5WY3xJ1Snpk86wqrwCJEbW?si=jbMlUxL8RwWTMg2MSpitcA" target="_blank" class="btn-social-popup">
+                  <i class="fab fa-spotify"></i> Spotify
+              </a>
+              <a href="https://music.apple.com/us/artist/mark2-ministry/1771681746" target="_blank" class="btn-social-popup">
+                  <i class="fab fa-apple"></i> Apple Music
+              </a>
+              <a href="https://music.amazon.com/artists/B0DJCH49LV/mark2-ministry" target="_blank" class="btn-social-popup">
+                  <i class="fab fa-amazon"></i> Amazon Music
+              </a>
+              <a href="https://www.instagram.com/mark2_ministry/" target="_blank" class="btn-social-popup">
+                  <i class="fab fa-instagram"></i> Instagram
+              </a>
+            </div>
+            
+            <button type="button" class="btn btn-outline-light mt-4 rounded-pill px-4" data-bs-dismiss="modal" style="font-size: 0.9rem; letter-spacing: 0.5px;">Ver la página web</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="randomVideoModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content custom-modal p-1">
+          <div class="modal-header border-0 pb-0">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0 pb-3 px-3">
+            <div class="video-container mb-0" style="border-radius: 8px;">
+                <iframe id="randomVideoIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">
+                MARK2
+                <span class="subbrand">MINISTRY</span>
+            </a>
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#musica">Música</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#agenda">Agenda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h1 class="hero-title">MARK2 MINISTRY</h1>
+                    <p class="hero-callout">Gálatas 6:17</p>
+                    <p class="hero-subtitle">Música que transforma, adoración que conecta.</p>
+                    <div class="hero-buttons">
+                        <a href="#" id="btn-play-random" class="btn-custom me-md-3"><i class="fas fa-play me-2"></i> Escuchar Ahora</a>
+                        <a href="https://www.youtube.com/@MARK2Ministry" target="_blank" class="btn-custom bg-transparent text-white" style="border-color: #fff;">Visitar Canal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Nuestra Historia</h2>
+            <div class="row align-items-center">
+                <div class="col-md-5 mb-4">
+                    <img src="img/1001285449.jpg" alt="MARK2 Ministry en vivo" class="img-fluid about-image">
+                </div>
+                <div class="col-md-7 px-md-4">
+                    <div class="about-block">
+                        <h4 style="color: var(--color-primario);">¿Quiénes son Mark2?</h4>
+                        <p class="mb-0">Somos el ministerio de alabanza de la iglesia <strong>Pasión por Jesús</strong>, personas que amamos y adoramos a Dios con todo nuestro corazón.</p>
+                    </div>
+                    <div class="about-block">
+                        <h4 style="color: var(--color-primario);">¿Por qué el nombre?</h4>
+                        <p class="fs-5 mb-0 text-muted">El nombre <strong>MARK2</strong> nace por el texto <em>"Gálatas 6:17"</em>, dado que entendimos que nuestra vida debe reflejar a Jesús y esto irá dejando sus huellas y marcas en nosotros.</p>
+                    </div>
+                    <div class="about-block">
+                        <h4 style="color: var(--color-primario);">Nuestro Mensaje</h4>
+                        <p class="mb-0">Por medio de nuestras canciones queremos que puedan tener un encuentro con Dios, y también puedan adorar y reconocer su grandeza, poder y majestad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="musica" class="section-padding" style="background-color: #0a0a0a;">
+        <div class="container">
+            <h2 class="section-title">Nuestra Música</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="col"><div class="music-item-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/SC0l8B8gk8I" allowfullscreen></iframe></div><h4 class="song-title">Yo Soy Un Guerrero</h4><p class="song-type">Sencillo Oficial</p></div></div>
+                <div class="col"><div class="music-item-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/MwprpHOwXRQ" allowfullscreen></iframe></div><h4 class="song-title">Caminando En Un Nuevo Tiempo</h4><p class="song-type">Sencillo Oficial</p></div></div>
+                <div class="col"><div class="music-item-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/Oz-tC9dqH3c" allowfullscreen></iframe></div><h4 class="song-title">Al Monte Subiré</h4><p class="song-type">Adoración Directa</p></div></div>
+                <div class="col"><div class="music-item-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/U7al1-jUyw0" allowfullscreen></iframe></div><h4 class="song-title">Esperaré</h4><p class="song-type">Sencillo Oficial</p></div></div>
+                <div class="col"><div class="music-item-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/WTMN8-AAsI0" allowfullscreen></iframe></div><h4 class="song-title">Mas Que Un Pretexto</h4><p class="song-type">Sencillo Oficial</p></div></div>
+                <div class="col"><div class="music-item-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/92IN6BvT2zE" allowfullscreen></iframe></div><h4 class="song-title">Eres Todo Para Mi</h4><p class="song-type">Sencillo Oficial</p></div></div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="https://www.youtube.com/playlist?list=PLujU9HMxe6uT9TwvoV5dvNZnBb0pzsIXE" target="_blank" class="btn-custom" style="padding: 10px 40px;">
+                    <i class="fab fa-youtube text-danger me-2"></i> Ver Playlist Completa
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Momentos de Adoración</h2>
+            <div class="gallery-columns">
+                <div class="gallery-item"><img src="img/1001285451.jpg" alt="Concierto MARK2"></div>
+                <div class="gallery-item"><img src="img/1001285461.jpg" alt="Público adorando"></div>
+                <div class="gallery-item"><img src="img/1001285457.jpg" alt="Guitarrista en vivo"></div>
+                <div class="gallery-item"><img src="img/1001285459.jpg" alt="Banda MARK2"></div>
+                <div class="gallery-item"><img src="img/1001285463.jpg" alt="Detalle músicos"></div>
+                <div class="gallery-item"><img src="img/1001285453.jpg" alt="Banda adorando"></div>
+                <div class="gallery-item"><img src="img/Milena.jpeg" alt="Banda adorando"></div>
+                <div class="gallery-item"><img src="img/Emanuel.jpeg" alt="Banda adorando"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="agenda" class="section-padding" style="background-color: #0a0a0a;">
+        <div class="container">
+            <h2 class="section-title">Agenda</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="agenda-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                        <div class="mb-3 mb-md-0">
+                            <p class="agenda-date">Próximamente</p>
+                            <h3 class="agenda-title">Gira por Guatemala</h3>
+                            <p class="agenda-location"><i class="fas fa-map-marker-alt me-2"></i> Diversas Localidades</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-agenda disabled" style="opacity: 0.7;">Por Confirmar</button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <a href="https://wa.me/573208009314?text=Hola,%20me%20gustaría%20solicitar%20información%20para%20agendar%20un%20concierto%20con%20MARK2%20MINISTRY." target="_blank" class="btn btn-solicitar w-100 py-3 shadow-lg" style="max-width: 800px;">
+                            SOLICITAR UN CONCIERTO <i class="fab fa-whatsapp ms-2 fs-4 align-middle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="redes" class="section-padding">
+        <div class="container text-center">
+            <h2 class="section-title" style="font-size: 2rem;">Conéctate con Nosotros</h2>
+            <div class="d-flex justify-content-center align-items-center flex-wrap mt-4">
+                <a href="https://www.youtube.com/@MARK2Ministry" target="_blank" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://open.spotify.com/intl-es/artist/5WY3xJ1Snpk86wqrwCJEbW?si=jbMlUxL8RwWTMg2MSpitcA" target="_blank" class="social-icon" title="Spotify"><i class="fab fa-spotify"></i></a>
+                <a href="https://music.apple.com/us/artist/mark2-ministry/1771681746" target="_blank" class="social-icon" title="Apple Music"><i class="fab fa-apple"></i></a>
+                <a href="https://music.amazon.com/artists/B0DJCH49LV/mark2-ministry" target="_blank" class="social-icon" title="Amazon Music"><i class="fab fa-amazon"></i></a>
+                <a href="https://www.instagram.com/mark2_ministry/" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/573208009314" target="_blank" class="social-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="mt-4 text-footer-handle font-monospace">@mark2_ministry</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0 text-muted">© 2026 MARK2 MINISTRY. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling para los enlaces de anclaje
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if(this.id !== "btn-play-random") {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Script para mostrar el popup al cargar la página
+        window.addEventListener('load', function() {
+            var socialModal = new bootstrap.Modal(document.getElementById('socialModal'));
+            socialModal.show();
+        });
+
+        // SCRIPT PARA REPRODUCIR VIDEO ALEATORIO
+        const videoIds = [
+            "SC0l8B8gk8I", "MwprpHOwXRQ", "Oz-tC9dqH3c", 
+            "U7al1-jUyw0", "WTMN8-AAsI0", "92IN6BvT2zE", 
+            "LIpxGYNFFWc", "dpOtIX4Vmmc", "m7eTBFNrrBI"
+        ];
+
+        document.getElementById('btn-play-random').addEventListener('click', function(e) {
+            e.preventDefault();
+            const randomId = videoIds[Math.floor(Math.random() * videoIds.length)];
+            const iframe = document.getElementById('randomVideoIframe');
+            iframe.src = "https://www.youtube.com/embed/" + randomId + "?autoplay=1";
+            var randomVideoModal = new bootstrap.Modal(document.getElementById('randomVideoModal'));
+            randomVideoModal.show();
+        });
+
+        // Detener el video cuando se cierra el modal
+        document.getElementById('randomVideoModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('randomVideoIframe').src = "";
+        });
+    </script>
+</body>
+</html>
