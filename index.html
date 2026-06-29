@@ -179,46 +179,38 @@
         .music-item-card { border: none; background-color: #1e1e1e; border-radius: 10px; padding: 15px; height: 100%; transition: transform 0.3s ease; }
         .music-item-card:hover { transform: translateY(-5px); }
 
-        /* --- CORRECCIÓN NUEVA: GALERÍA MASONRY SIN CORTES --- */
-        .gallery-columns {
-            column-count: 3;
-            column-gap: 20px;
-        }
-        @media (max-width: 992px) {
-            .gallery-columns { column-count: 2; }
-        }
-        @media (max-width: 576px) {
-            .gallery-columns { column-count: 1; }
-        }
+        /* --- CUADRÍCULA SIMÉTRICA CORREGIDA (ENFOQUE EN ROSTROS) --- */
         .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             transition: all 0.3s ease-in-out;
             border: 1px solid rgba(255,255,255,0.05);
+            background-color: #1a1a1a;
         }
         .gallery-item img {
             width: 100%;
-            height: auto; /* Mantiene la proporción original al 100% sin cortes */
+            height: 280px; 
+            object-fit: cover; 
+            object-position: center 15%; /* CORRECCIÓN: Enfoca la parte superior para que nunca corte cabezas o caras */
             display: block;
             transition: transform 0.5s ease;
         }
         .gallery-item:hover {
             transform: translateY(-5px);
             border-color: var(--color-primario);
-            box-shadow: 0 12px 25px rgba(243, 166, 54, 0.2);
+            box-shadow: 0 12px 25px rgba(243, 166, 54, 0.25);
         }
         .gallery-item:hover img {
-            transform: scale(1.03);
+            transform: scale(1.04);
         }
 
         /* Agenda */
         .agenda-item { border-bottom: 1px solid #333; padding: 25px 0; transition: background-color 0.3s ease; }
         .agenda-item:hover { background-color: rgba(255, 255, 255, 0.02); }
-        .agenda-date { color: var(--color-primario); font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; }
-        .agenda-title { color: #fff; font-size: 1.8rem; margin-bottom: 5px; }
+        .agenda-date { color: #aaa; font-weight: 400; font-size: 0.95rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+        .agenda-title { color: var(--color-primario); font-size: 2.2rem; margin-bottom: 5px; letter-spacing: 1px; }
+        .agenda-location { font-size: 1.1rem; color: #fff; }
         .btn-agenda { background-color: var(--color-secundario); color: #fff; font-weight: 600; border: none; padding: 10px 25px; border-radius: 0; text-transform: uppercase; }
         .btn-solicitar { background-color: var(--color-secundario); color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 2px; border: none; border-radius: 0; transition: background-color 0.3s ease; }
         .btn-solicitar:hover { background-color: var(--color-primario); color: #121212; }
@@ -379,15 +371,15 @@
     <section id="galeria" class="section-padding">
         <div class="container">
             <h2 class="section-title">Momentos de Adoración</h2>
-            <div class="gallery-columns">
-                <div class="gallery-item"><img src="img/1001285451.jpg" alt="Concierto MARK2"></div>
-                <div class="gallery-item"><img src="img/1001285461.jpg" alt="Público adorando"></div>
-                <div class="gallery-item"><img src="img/1001285457.jpg" alt="Guitarrista en vivo"></div>
-                <div class="gallery-item"><img src="img/1001285459.jpg" alt="Banda MARK2"></div>
-                <div class="gallery-item"><img src="img/1001285463.jpg" alt="Detalle músicos"></div>
-                <div class="gallery-item"><img src="img/1001285453.jpg" alt="Banda adorando"></div>
-                <div class="gallery-item"><img src="img/Milena.jpeg" alt="Banda adorando"></div>
-                <div class="gallery-item"><img src="img/Emanuel.jpeg" alt="Banda adorando"></div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div class="col"><div class="gallery-item"><img src="img/1001285451.jpg" alt="Concierto MARK2"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/1001285461.jpg" alt="Público adorando"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/1001285457.jpg" alt="Guitarrista en vivo"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/1001285459.jpg" alt="Banda MARK2"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/1001285463.jpg" alt="Detalle músicos"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/1001285453.jpg" alt="Banda adorando"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/Milena.jpeg" alt="Cantante Milena"></div></div>
+                <div class="col"><div class="gallery-item"><img src="img/Emanuel.jpeg" alt="Músico Emanuel"></div></div>
             </div>
         </div>
     </section>
@@ -399,9 +391,9 @@
                 <div class="col-lg-10">
                     <div class="agenda-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
                         <div class="mb-3 mb-md-0">
-                            <p class="agenda-date">Próximamente</p>
-                            <h3 class="agenda-title">Gira por Guatemala</h3>
-                            <p class="agenda-location"><i class="fas fa-map-marker-alt me-2"></i> Diversas Localidades</p>
+                            <p class="agenda-date">Gira por Guatemala — Día y Hora por Confirmar</p>
+                            <h3 class="agenda-title">Ciudad Chimaltenango</h3>
+                            <p class="agenda-location"><i class="fas fa-map-marker-alt me-2"></i> Nombre de Iglesia por Confirmar</p>
                         </div>
                         <div>
                             <button class="btn btn-agenda disabled" style="opacity: 0.7;">Por Confirmar</button>
