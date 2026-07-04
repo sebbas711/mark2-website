@@ -211,7 +211,7 @@
         .agenda-date { color: #aaa; font-weight: 400; font-size: 0.95rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
         .agenda-title { color: var(--color-primario); font-size: 2.2rem; margin-bottom: 5px; letter-spacing: 1px; }
         .agenda-location { font-size: 1.1rem; color: #fff; }
-        .btn-agenda { background-color: var(--color-secundario); color: #fff; font-weight: 600; border: none; padding: 10px 25px; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-agenda { background-color: #198754; color: #fff; font-weight: 600; border: none; padding: 10px 25px; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; }
         .btn-solicitar { background-color: var(--color-secundario); color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 2px; border: none; border-radius: 0; transition: background-color 0.3s ease; }
         .btn-solicitar:hover { background-color: var(--color-primario); color: #121212; }
 
@@ -224,6 +224,17 @@
     </style>
 </head>
 <body id="inicio">
+
+    <div class="modal fade" id="eventSplashModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: transparent; border: none;">
+          <div class="modal-body text-center p-0 position-relative">
+            <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 10; filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));"></button>
+            <img src="img/Evento2.png" alt="Evento Hoy MARK2" class="img-fluid" style="border-radius: 20px; box-shadow: 0 15px 40px rgba(243, 166, 54, 0.4); max-height: 85vh; object-fit: contain;">
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal fade" id="socialModal" tabindex="-1" aria-labelledby="socialModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -378,12 +389,12 @@
                 <div class="col-lg-10">
                     <div class="agenda-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
                         <div class="mb-3 mb-md-0">
-                            <p class="agenda-date">Gira por Guatemala</p>
-                            <h3 class="agenda-title">Próximas Fechas</h3>
-                            <p class="agenda-location"><i class="fas fa-calendar-alt me-2"></i> Localidades y horarios por confirmar</p>
+                            <p class="agenda-date">Gira por Guatemala — Sábado 4 de Julio, 6:30 PM</p>
+                            <h3 class="agenda-title">Santa Apolonia, Tecpán</h3>
+                            <p class="agenda-location"><i class="fas fa-map-marker-alt me-2"></i> Iglesia Vida Nueva Asambleas de Dios</p>
                         </div>
                         <div>
-                            <button class="btn btn-agenda" style="background-color: var(--color-secundario); cursor: default;">Próximamente</button>
+                            <button class="btn btn-agenda" style="background-color: #198754; cursor: default;">¡Confirmado!</button>
                         </div>
                     </div>
                     <div class="text-center mt-5">
@@ -430,10 +441,25 @@
             });
         });
 
-        // Muestra el popup de redes sociales directamente al cargar la página
+        // SCRIPT MAESTRO: SECUENCIA DE MODALS (EVENTO -> REDES SOCIALES)
         window.addEventListener('load', function() {
+            var eventModalElement = document.getElementById('eventSplashModal');
+            var eventModal = new bootstrap.Modal(eventModalElement);
             var socialModal = new bootstrap.Modal(document.getElementById('socialModal'));
-            socialModal.show();
+            
+            // 1. Mostrar el flyer del evento primero
+            eventModal.show();
+            
+            // 2. Programar cierre automático a los 5 segundos (5000 ms)
+            var autoCloseTimer = setTimeout(function() {
+                eventModal.hide();
+            }, 5000);
+
+            // 3. Cuando se cierre el flyer del evento (por tiempo o por clic del usuario), mostrar el de redes sociales
+            eventModalElement.addEventListener('hidden.bs.modal', function () {
+                clearTimeout(autoCloseTimer); // Evita doble ejecución si el usuario lo cierra manualmente antes
+                socialModal.show();
+            });
         });
 
         // SCRIPT PARA REPRODUCIR VIDEO ALEATORIO
